@@ -1,0 +1,29 @@
+Make WsgiApplicationTest not suck
+Review and fill out all docblocks
+
+Uri query string parser/unparser
+Uri authority parser/unparser
+
+Request: assume env is valid?
+Env/Request: reduce 80/443 host/port/uri_scheme duplication
+Request: move query parsing to Uri class
+Env/Request: authorization
+Env/Request: wsgi.input (stream? string?)
+Response/WsgiApp: body is a string, array, traversable, or stream?
+Request/Response: charsets, utf8
+
+s/WebApp/Filament/g
+
+docblocks
+Wiki Documentation
+url helpers ()
+pagination helper
+reply w/ correct content-type automatically (?)
+RequestHandler content negotiation
+debug mode
+code coverage
+middleware for ensuring 404 responses are >= 512 bytes if sending text/html content
+There MUST be a Content-Type except when the Status is 1xx, 204 or 304, in which case there MUST be none given.
+There MUST NOT be a Content-Length header when the Status is 1xx, 204 or 304.
+Use "application/octet-stream" by default
+Reduce WsgiAppRunner/WsgiCliAppRunner duplication

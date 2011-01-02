@@ -1,0 +1,122 @@
+## Protocols
+WSGI http://www.python.org/dev/peps/pep-0333/
+rack http://rack.rubyforge.org/doc/files/SPEC.html
+JSGI http://jackjs.org/jsgi-spec.html
+PSGI https://github.com/miyagawa/psgi-specs/blob/master/PSGI.pod
+
+
+Simplest possible app:
+
+// Gossamer
+class MyWebApp extends WsgiApplication {
+	public function __invoke($env) {
+		return array(
+			'200 OK',
+			array('Content-Type' => 'text/plain'),
+			array('Hello world!')
+		);
+	}
+}
+$app = new MyWebApp();
+$app->run();
+
+
+class MainPage extends RequestHandler {
+	public function get() {
+		$this->response->setHeader('Content-Type', 'text/plain');
+		$this->response->write('Hello world!');
+	}
+}
+
+$app = new WebApp(array('/' => 'MainPage'), $debug=true);
+$app->run();
+
+
+function application($env) {
+	return array(
+		'200 OK',
+		array('Content-Type' => 'text/plain'),
+		array('Hello world!')
+	);
+}
+Gossamer::run('application');
+
+
+
+// webapp, Google App Engine
+class MainPage(webapp.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.out.write('Hello, webapp World!')
+
+application = webapp.WSGIApplication([('/', MainPage)], debug=True)
+
+def main():
+    run_wsgi_app(application)
+
+if __name__ == "__main__":
+    main()
+
+
+
+// WSGI, PEP-333
+def simple_app(environ, start_response):
+    """Simplest possible application object"""
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    start_response(status, response_headers)
+    return ['Hello world!\n']
+
+
+
+// JSGI, Jack
+function(env) {
+    return {
+        status : 200,
+        headers : {"Content-Type":"text/plain"},
+        body : ["Hello world!"]
+    };
+}
+
+
+
+// PSGI, Plack
+my $app = sub {
+    my $env = shift;
+    return [
+        '200',
+        [ 'Content-Type' => 'text/plain' ],
+        [ "Hello World" ], # or IO::Handle-like object
+    ];
+};
+
+
+
+// Rack
+def application(env)
+  [200, {"Content-Type" => "text/html"}, "Hello Rack!"]
+end
+//Rack::Handler::Mongrel.run method(:application), :Port => 9292
+
+
+## Name ideas
+occam, ockham, razor, parsus, fizz, phizz, phuzguy (PhSGI)
+filament (http client), fibre, gossamer (app framework), coil (app server)
+flack, flak, phlack, phack
+flow (io, ipc, multi-/sub-processing)
+
+simple, foundation, building blocks, web, framework, REST
+recess, tonic, chinchilla
+
+## Similar projects
+https://github.com/indeyets/appserver-in-php
+http://www.konstrukt.dk/
+http://restfulchinchilla.com/
+
+http://pythonpaste.org/webob/reference.html
+http://docs.python.org/library/wsgiref.html
+
+http://routes.groovie.org/setting_up.html
+http://code.google.com/appengine/docs/python/gettingstarted/usingwebapp.html
+http://code.google.com/appengine/docs/python/tools/webapp/requestdata.html
+
