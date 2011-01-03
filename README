@@ -7,7 +7,7 @@ INSTALLATION
 EXAMPLE
 	<?php
 
-	require /path/to/gossamer/Gossamer.php
+	require '/path/to/gossamer/Gossamer.php';
 
 	class MainPage extends RequestHandler {
 		public function get() {
@@ -16,7 +16,7 @@ EXAMPLE
 		}
 	}
 
-	$app = new WsgiApplicationApp(array('/(.*)' => 'MainPage'));
+	$app = new WsgiApplicationApp(array('/' => 'MainPage'));
 	$app->run();
 
 
