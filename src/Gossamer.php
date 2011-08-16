@@ -149,7 +149,7 @@ class GossamerCliRunner {
 	 */
 	public function run($callback, $env=null) {
 		// @TODO make this much better
-		$options = getopt('H d:: i X::');
+		$options = getopt('Hd::iX::');
 		$include_headers = isset($options['i']);
 
 		if ($env === null) {
