@@ -426,6 +426,8 @@ class Request {
 				// @TODO work-around limitation of parse_str (e.g. 'a=1&a=2' -> 'a=2', 'a.b=1' or 'a b=1' -> 'a_b=1')
 				$decoded_body = html_entity_decode($body);
 				parse_str($decoded_body, $this->parsed_body);
+			} else {
+				$this->parsed_body = $body;
 			}
 		}
 		return $this->parsed_body;
