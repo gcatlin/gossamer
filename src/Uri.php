@@ -180,7 +180,7 @@ class Uri {
 		
 		// Compensate for limited behavior of PHP's parse_url function
 		$reset = false;
-		if ($uri[0] == '/' && $uri[1] == '/') { # //*
+		if (isset($uri[1]) && $uri[0] == '/' && $uri[1] == '/') { # //*
 			if ($uri[2] == '/') { # ///*
 				$uri = 'scheme://host/' . substr($uri, 3);
 				$reset = array('scheme', 'host');
