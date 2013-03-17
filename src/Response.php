@@ -15,6 +15,8 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 /**
  *
  */

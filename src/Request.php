@@ -15,6 +15,8 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 /**
  * A Request object is a wrapper for the environment array that gets passed to
  * its constructor.

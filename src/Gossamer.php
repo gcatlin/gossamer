@@ -15,30 +15,12 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 /**
  *
  */
 class Gossamer {
-    protected static $class_map = array(
-        'Env'             => '/Env.php',
-        'Request'         => '/Request.php',
-        'RequestHandler'  => '/RequestHandler.php',
-        'Response'        => '/Response.php',
-        'Uri'             => '/Uri.php',
-        'WsgiApplication' => '/WsgiApplication.php',
-    );
-
-    /**
-     * Autoloader
-     *
-     * @param string $class_name
-     */
-    public static function autoload($class_name) {
-        if (isset(self::$class_map[$class_name])) {
-            require_once dirname(__FILE__) . self::$class_map[$class_name];
-        }
-    }
-
     /**
      * Executes the WSGI application callback using the supplied environment. If
      * null, it will be created from the environment supplied by the PHP SAPI.
@@ -219,8 +201,6 @@ class GossamerCliRunner {
         }
     }
 }
-
-spl_autoload_register(array('Gossamer', 'autoload'));
 
 // function simple_app($env) {
 // 	return array(

@@ -1,21 +1,23 @@
 <?php
-// 
+//
 // Copyright 2010 Geoff Catlin
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// 
+//
 
-class UriTest extends PHPUnit_Framework_TestCase {
+namespace gcatlin\gossamer;
+
+class UriTest extends \PHPUnit_Framework_TestCase {
 	public function test_ConstructorAcceptsParsedUriArray() {
 		$uri_str = 'foo://username:password@example.com:8042/over/there/index.dtb;type=animal?name=ferret#nose';
 		$uri_arr = Uri::parse($uri_str);
@@ -48,7 +50,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 		);
 		self::assertSame($uri, Uri::unparse($components));
 	}
-	
+
 	public function dataProvider_ParsedUrisAreRecomposed() {
 		return array(
 			array('', array(null, null, null, null, null, null, null, null, null)),
@@ -86,7 +88,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 			array('urn:oasis:names:specification:docbook:dtd:xml:4.1.2', array('urn', null, 'oasis:names:specification:docbook:dtd:xml:4.1.2', null, null, null, null, null, null)),
 		);
 	}
-	
+
 	/**
 	 * @dataProvider dataProvider_ParseReturnsSpecifiedComponent
 	 */
@@ -116,7 +118,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 	public function test_PathsNormalizedPerRfc3986($path, $normalized_path) {
 		self::assertEquals($normalized_path, Uri::normalizePath($path));
 	}
-	
+
 	public function dataProvider_PathsNormalizedPerRfc3986() {
 		return array(
 			array('', ''),
@@ -130,14 +132,14 @@ class UriTest extends PHPUnit_Framework_TestCase {
 			array('///', '/'),
 		);
 	}
-	
+
 	/**
 	 * @dataProvider dataProvider_UrisNormalizedPerRfc3986
 	 */
 	public function test_UrisNormalizedPerRfc3986($uri, $normalized_uri) {
 		self::assertEquals($normalized_uri, Uri::normalize($uri));
 	}
-	
+
 	public function dataProvider_UrisNormalizedPerRfc3986() {
 		return array(
 			array('HTTP://www.Example.com/', 'http://www.example.com/'), // Convert scheme and host to lower case
@@ -147,7 +149,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 			// array('example://a/b/%63', 'example://a/b/c'), // Decode allowed entities
 		);
 	}
-	
+
 	public function test_UriPropertiesAreAccessible() {
 		$uri = new Uri('foo://username:password@example.com:8042/over/there/index.dtb;type=animal?name=ferret#nose');
 		self::assertEquals('foo', $uri->getScheme());
@@ -159,7 +161,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 		self::assertEquals('password', $uri->getPassword());
 		self::assertEquals('example.com', $uri->getHost());
 		self::assertEquals('8042', $uri->getPort());
-		
+
 	}
 
 	/**
@@ -179,7 +181,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 		);
 		self::assertSame($components, Uri::parse($uri));
 	}
-	
+
 	public function dataProvider_UrisParsedPerRfc3986() {
 		return array(
 			array('', array(null, null, null, null, null, null, null, null, null)),
@@ -215,14 +217,14 @@ class UriTest extends PHPUnit_Framework_TestCase {
 			array('urn:oasis:names:specification:docbook:dtd:xml:4.1.2', array('urn', null, 'oasis:names:specification:docbook:dtd:xml:4.1.2', null, null, null, null, null, null)),
 		);
 	}
-	
+
 	/**
 	 * @dataProvider dataProvider_UrisResolvedPerRfc3986
 	 */
 	public function test_UrisResolvedPerRfc3986($base_uri, $relative_uri, $expected_uri) {
 		self::assertEquals($expected_uri, Uri::resolve($base_uri, $relative_uri));
 	}
-	
+
 	public function dataProvider_UrisResolvedPerRfc3986() {
 		return array(
 			array('http://a/b/c/d;p?q', 'g:h', 'g:h'),
@@ -267,7 +269,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
 			array('http://a/b/c/d;p?q', 'g#s/./x', 'http://a/b/c/g#s/./x'),
 			array('http://a/b/c/d;p?q', 'g#s/../x', 'http://a/b/c/g#s/../x'),
 			array('http://a/b/c/d;p?q', 'http:g', 'http:g'),
-			
+
 			array('http://a/b/c/d;p?q', '//g/', 'http://g/'),
 			array('http://a/b/c/d;p?q', '///g', 'http://a/g'),
 			array('http://a/b/c/d;p?q', 'g:', 'g:'),

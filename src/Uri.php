@@ -15,6 +15,8 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 if (!defined('PHP_URL_AUTHORITY')) {
     define('PHP_URL_AUTHORITY', 8);
 }

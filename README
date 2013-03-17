@@ -7,7 +7,7 @@ INSTALLATION
 EXAMPLE
 	<?php
 
-	require '/path/to/gossamer/Gossamer.php';
+	require '/path/to/gossamer/src/autoload.php';
 
 	class MainPage extends RequestHandler {
 		public function get() {

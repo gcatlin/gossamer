@@ -15,6 +15,8 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 /**
  * Env is a wrapper class for relevant constants and static method(s).
  */

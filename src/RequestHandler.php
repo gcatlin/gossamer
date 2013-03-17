@@ -15,6 +15,8 @@
 // limitations under the License.
 //
 
+namespace gcatlin\gossamer;
+
 /**
  *
  */
@@ -89,7 +91,7 @@ class RequestHandler {
      * @param Exception $e
      * @param bool $debug
      */
-    public function handleException(Exception $e, $debug=false) {
+    public function handleException(\Exception $e, $debug=false) {
         // @TODO make output content-type agnostic (i.e. not tied to text/html)???
         $this->error(Response::InternalServerError);
         $this->response->write("<h1>Server Error</h1>\n");
