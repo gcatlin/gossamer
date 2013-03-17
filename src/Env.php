@@ -18,7 +18,7 @@
 /**
  * Env is a wrapper class for relevant constants and static method(s).
  */
-class Env {
+class Env implements \ArrayAccess {
     /**
      * The host name to use if none is supplied.
      */
@@ -47,6 +47,8 @@ class Env {
      * @var string
      */
     const DefaultScheme = 'http';
+
+    protected $env = array();
 
     /**
      * Creates a well-formed environment array based on the supplied inputs.
@@ -133,6 +135,30 @@ class Env {
 
         $env['wsgi.uri_scheme'] = $uri_scheme;
 
-        return $env;
+        return new Env($env);
+    }
+
+    public function __construct($env) {
+        $this->env = $env;
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->env[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return (isset($this->env[$offset]) ? $this->env[$offset] : null);
+    }
+
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->env[] = $value;
+        } else {
+            $this->env[$offset] = $value;
+        }
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->env[$offset]);
     }
 }
