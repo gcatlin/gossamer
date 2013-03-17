@@ -183,7 +183,7 @@ class Uri {
         // Compensate for limited behavior of PHP's parse_url function
         $reset = false;
         if (isset($uri[1]) && $uri[0] == '/' && $uri[1] == '/') { # //*
-            if ($uri[2] == '/') { # ///*
+            if (isset($uri[2]) && $uri[2] == '/') { # ///*
                 $uri = 'scheme://host/' . substr($uri, 3);
                 $reset = array('scheme', 'host');
             } elseif (!isset($uri[2])) { # //
@@ -199,7 +199,7 @@ class Uri {
             // 	$uri = 'scheme' . $uri;
             // 	$rest = array('scheme');
             // }
-            if (isset($parts[1]) && $parts[1][0] == '/' && $parts[1][1] == '/') { # *://*
+            if (isset($parts[1][0]) && $parts[1][0] == '/' && isset($parts[1][1]) && $parts[1][1] == '/') { # *://*
                 if (!isset($parts[1][2])) { # *://
                     $uri .= 'host';
                     $reset = array('host');
@@ -233,7 +233,7 @@ class Uri {
 
         if ($component == -1) {
             return $parsed_uri;
-        } elseif (isset($parsed_uri[self::$component_map[$component]])) {
+        } elseif (isset(self::$component_map[$component]) && isset($parsed_uri[self::$component_map[$component]])) {
             return $parsed_uri[self::$component_map[$component]];
             // } elseif ($component == 'PHP_URL_AUTHORITY') {
             // 	return $parsed_uri['authority'];
@@ -479,7 +479,7 @@ class Uri {
             }
         }
 
-        if ($parsed_uri['host'] !== null) {
+        if (isset($parsed_uri['host']) && $parsed_uri['host'] !== null) {
             $authority .= $parsed_uri['host'];
             if (isset($parsed_uri['port'][0])) {
                 $authority .= ':' . $parsed_uri['port'];

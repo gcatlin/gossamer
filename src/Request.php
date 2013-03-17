@@ -50,6 +50,12 @@ class Request {
 
     /**
      *
+     * @var array
+     */
+    protected $arguments;
+
+    /**
+     *
      * @var string
      */
     protected $body;
@@ -154,7 +160,7 @@ class Request {
      *
      * @var string
      */
-    protected $remote_addr;
+    protected $remote_address;
 
     /**
      *
@@ -208,9 +214,11 @@ class Request {
      */
     public function arguments() {
         if ($this->arguments === null) {
-            $query = array_keys($this->getParsedQuery());
-            $body = array_keys($this->getParsedBody());
-            $this->arguments = array_merge($query, $body);
+            $this->arguments = array_keys($this->getParsedQuery());
+            $body = $this->getParsedBody();
+            if ($body) {
+                $this->arguments = array_merge($this->arguments, (array) $body);
+            }
         }
         return $this->arguments;
     }

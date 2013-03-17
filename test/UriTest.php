@@ -96,19 +96,19 @@ class UriTest extends \PHPUnit_Framework_TestCase {
 		$uri = 'foo://username:password@example.com:8042/over/there?name=ferret#nose';
 		self::assertEquals($value, Uri::parse($uri, $component));
 	}
-	
+
 	public function dataProvider_ParseReturnsSpecifiedComponent() {
 		return array(
 			array('INVALID', null),
-			array(Uri::Scheme, 'foo'),
-			array(Uri::Authority, 'username:password@example.com:8042'),
-			array(Uri::Path, '/over/there'),
-			array(Uri::Query, 'name=ferret'),
-			array(Uri::Fragment, 'nose'),
-			array(Uri::Host, 'example.com'),
-			array(Uri::Port, '8042'),
-			array(Uri::User, 'username'),
-			array(Uri::Pass, 'password'),
+			array(Uri::SCHEME, 'foo'),
+			array(Uri::AUTHORITY, 'username:password@example.com:8042'),
+			array(Uri::PATH, '/over/there'),
+			array(Uri::QUERY, 'name=ferret'),
+			array(Uri::FRAGMENT, 'nose'),
+			array(Uri::HOST, 'example.com'),
+			array(Uri::PORT, '8042'),
+			array(Uri::USER, 'username'),
+			array(Uri::PASS, 'password'),
 		);
 	}
 

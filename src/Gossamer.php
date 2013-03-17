@@ -137,7 +137,13 @@ class GossamerCliRunner {
         if ($env === null) {
             $argv = array_slice($_SERVER['argv'], 1);
             $argc = $_SERVER['argc'] - 1;
-            $uri = (strpos($argv[0], '-') !== 0 ? $argv[0] : $argv[$argc - 1]);
+            if (!$argc) {
+                $uri = '';
+            } elseif (isset($argv[0]) && strpos($argv[0], '-') !== 0) {
+                $uri = $argv[0];
+            } else {
+                $uri = $argv[$argc - 1];
+            }
             $method = (isset($options['X']) ? $options['X'] : 'GET');
             $headers = (isset($options['H']) ? (array) $options['H'] : array());
             $body = (isset($options['d']) ? $options['d'] : null);
