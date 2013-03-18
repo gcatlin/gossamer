@@ -1,0 +1,26 @@
+{
+    "name": "gcatlin/gossamer",
+    "type": "library",
+    "description": "A simple PHP web application framework",
+    "homepage": "https://github.com/gcatlin/gossamer",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Geoff Catlin",
+            "email": "gcatlin@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/gcatlin/gossamer/issues"
+    },
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}
